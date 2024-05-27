@@ -1,2 +1,1 @@
-# VR_Tour_LMUxMesse
-# VR_tour_build
+LMUxMesse_München-VR-Tour-Build-Git
