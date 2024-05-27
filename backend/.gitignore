@@ -1,0 +1,13 @@
+# Dependency directory
+node_modules/
+
+# Environment variable files
+.env
+
+# Build directory
+build/
+
+# Logs
+logs
+*.log
+npm-debug.log*
