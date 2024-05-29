@@ -118,5 +118,3 @@ npm start
 
 - **MongoDB**: Ensure MongoDB is installed and running on your local machine. Create the `vr_tour_db` database and `tours` collection if they don't exist.
 - **Environment Variables**: If your project uses environment variables (e.g., database connection strings), ensure these are set up correctly on each teammate's machine. If needed, create a `.env` file with the necessary variables in the `backend` directory.
-
-By following these instructions, your teammates should be able to clone the repository and set up the project on their local machines successfully. If any issues arise during the setup, ensure that the necessary software (Node.js, npm, MongoDB) is installed and configured correctly.
