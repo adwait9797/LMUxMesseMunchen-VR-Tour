@@ -1,58 +1,27 @@
 const mongoose = require('mongoose');
+const Tour = require('./models/Tour');
 
-// MongoDB connection to local instance
-mongoose.connect('mongodb://localhost:27017/vr_tour_db', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log('MongoDB connected for seeding');
-}).catch((err) => {
-  console.error('MongoDB connection error:', err);
-});
-
-// Define the schema for tour parts
-const partSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  imageUrl: { type: String, required: true },
-});
-
-// Define the schema for the tour
-const tourSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  parts: [partSchema],
-});
-
-// Create the model for the tour
-const Tour = mongoose.model('Tour', tourSchema, 'tours'); // Explicitly mention the collection name 'tours'
-
-const seedData = async () => {
-  const tourData = {
+const seedDB = async () => {
+  await Tour.deleteMany({});
+  
+  const sampleTour = new Tour({
     title: 'Sample VR Tour',
     parts: [
       {
         title: 'Room 1',
         description: 'This is the first room of the tour.',
-        imageUrl: 'path/to/your/image1.jpg',
+        imageUrl: 'https://images.pexels.com/photos/2217658/pexels-photo-2217658.jpeg',
       },
       {
         title: 'Room 2',
         description: 'This is the second room of the tour.',
-        imageUrl: 'path/to/your/image2.jpg',
+        imageUrl: 'https://images.pexels.com/photos/3286160/pexels-photo-3286160.jpeg',
       },
+      // Add more rooms as needed
     ],
-  };
+  });
 
-  try {
-    // Clear existing data
-    await Tour.deleteMany({});
-    // Insert seed data
-    await Tour.create(tourData);
-    console.log('Data seeded successfully');
-    mongoose.connection.close();
-  } catch (error) {
-    console.error('Error seeding data:', error);
-  }
+  await sampleTour.save();
 };
 
-seedData();
+module.exports = seedDB;

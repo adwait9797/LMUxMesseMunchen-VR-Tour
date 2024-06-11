@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import './App.css';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import VRTour from './components/VRTour';
+import './App.css';
 
-const App = () => {
-  const [page, setPage] = useState('home');
-
+function App() {
   return (
-    <div className="App">
-      {page === 'home' ? <Home setPage={setPage} /> : <VRTour setPage={setPage} />}
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/vrtour" element={<VRTour />} />
+    </Routes>
   );
-};
+}
 
 export default App;

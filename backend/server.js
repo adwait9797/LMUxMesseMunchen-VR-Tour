@@ -1,45 +1,36 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
-const cors = require('cors'); // Import CORS
+const seedDB = require('./seed');
+const Tour = require('./models/Tour');
 
 const app = express();
-const PORT = process.env.PORT || 5002; // Ensure the port is 5002
+const PORT = process.env.PORT || 5002;
 
-app.use(cors()); // Use CORS
+// Middleware
+app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB
+// MongoDB connection
 mongoose.connect('mongodb://localhost:27017/vr_tour_db', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-const tourSchema = new mongoose.Schema({
-  parts: [
-    {
-      title: String,
-      imageUrl: String,
-    },
-  ],
-});
+// Seed the database
+seedDB();
 
-const Tour = mongoose.model('Tour', tourSchema);
-
-// Endpoint to get the tour data
+// Routes
 app.get('/api/tour', async (req, res) => {
   try {
     const tour = await Tour.findOne();
     res.json(tour);
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching tour data' });
+    res.status(500).json({ message: error.message });
   }
 });
 
-// Root route
-app.get('/', (req, res) => {
-  res.send('Welcome to the VR Tour API, this is not the route for the data, it is at http://localhost:5002/api/tour');
-});
-
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
