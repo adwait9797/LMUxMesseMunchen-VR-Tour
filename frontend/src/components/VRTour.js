@@ -3,6 +3,7 @@ import axios from 'axios';
 import 'aframe';
 import './VRTour.css';
 import menuIcon from './assets/menu_icon.svg';
+import Navigation from './Navigation';
 
 function VRTour() {
   const [tourData, setTourData] = useState(null);
@@ -53,6 +54,7 @@ function VRTour() {
 
   return (
     <div className="vr-tour">
+      <Navigation currentRoom={selectedRoom ? selectedRoom.title : 'Loading...'} />
       <div className="menu-strip" onClick={handleMenuClick}>
         <img src={menuIcon} alt="Menu" className="menu-icon" />
         {selectedRoom && (
