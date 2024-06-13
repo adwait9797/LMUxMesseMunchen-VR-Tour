@@ -1,16 +1,26 @@
 const mongoose = require('mongoose');
 
 const partSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  imageUrl: String,
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  imageUrl: {
+    type: String,
+    required: true
+  }
 });
 
 const tourSchema = new mongoose.Schema({
-  title: String,
-  parts: [partSchema],
+  title: {
+    type: String,
+    required: true
+  },
+  parts: [partSchema]
 });
 
-const Tour = mongoose.model('Tour', tourSchema);
-
-module.exports = Tour;
+module.exports = mongoose.model('Tour', tourSchema);

@@ -1,27 +1,33 @@
 const mongoose = require('mongoose');
 const Tour = require('./models/Tour');
 
-const seedDB = async () => {
+mongoose.connect('mongodb://localhost:27017/vr_tour_db', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', async () => {
+  console.log('Connected to MongoDB');
+
   await Tour.deleteMany({});
   
   const sampleTour = new Tour({
     title: 'Sample VR Tour',
     parts: [
-      {
-        title: 'Room 1',
-        description: 'This is the first room of the tour.',
-        imageUrl: 'https://images.pexels.com/photos/2217658/pexels-photo-2217658.jpeg',
-      },
-      {
-        title: 'Room 2',
-        description: 'This is the second room of the tour.',
-        imageUrl: 'https://images.pexels.com/photos/3286160/pexels-photo-3286160.jpeg',
-      },
-      // Add more rooms as needed
+      { title: 'Main Hall', description: 'The main hall of the Messe München.', imageUrl: 'assets/main_hall.jpg' },
+      { title: 'Auditorium', description: 'The auditorium of the Messe München.', imageUrl: 'assets/Auditorium.jpg' },
+      { title: 'Entrance West', description: 'The west entrance of the Messe München.', imageUrl: 'assets/entrance_west.jpg' },
+      { title: 'First Entrance', description: 'The first entrance of the Messe München.', imageUrl: 'assets/first_entrance.jpg' },
+      { title: 'Hall 1', description: 'The first hall of the Messe München.', imageUrl: 'assets/hall1.jpg' },
+      { title: 'Hall 2', description: 'The second hall of the Messe München.', imageUrl: 'assets/hall2.jpg' },
+      { title: 'B0', description: 'The B0 hall of the Messe München.', imageUrl: 'assets/B0.jpg' },
     ],
   });
 
   await sampleTour.save();
-};
+  console.log('Sample tour data seeded');
 
-module.exports = seedDB;
+  mongoose.connection.close();
+});
