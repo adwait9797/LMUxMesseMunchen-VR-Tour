@@ -16,7 +16,9 @@ function VRTour() {
         const response = await axios.get('http://localhost:5002/api/tour');
         console.log('Tour data fetched:', response.data);
         setTourData(response.data);
-        setSelectedRoom(response.data.parts[0]);
+        if (response.data.parts && response.data.parts.length > 0) {
+          setSelectedRoom(response.data.parts[0]);
+        }
       } catch (error) {
         console.error('Error fetching tour data:', error);
       }
@@ -30,11 +32,12 @@ function VRTour() {
       const scene = document.querySelector('a-scene');
       let skyElement = document.querySelector('a-sky');
       if (skyElement) {
-        scene.removeChild(skyElement);
+        skyElement.setAttribute('src', selectedRoom.imageUrl);
+      } else {
+        skyElement = document.createElement('a-sky');
+        skyElement.setAttribute('src', selectedRoom.imageUrl);
+        scene.appendChild(skyElement);
       }
-      skyElement = document.createElement('a-sky');
-      skyElement.setAttribute('src', selectedRoom.imageUrl);
-      scene.appendChild(skyElement);
     }
   }, [selectedRoom]);
 
@@ -66,7 +69,7 @@ function VRTour() {
       </div>
       {isMenuOpen && (
         <div className="menu">
-          {tourData.parts.map((part, index) => (
+          {tourData.parts && tourData.parts.map((part, index) => (
             <div key={index} className="menu-item" onClick={() => handleRoomSelect(part)}>
               {part.title}
             </div>
@@ -75,7 +78,7 @@ function VRTour() {
       )}
       <a-scene embedded>
         <a-assets>
-          {tourData.parts.map((part, index) => (
+          {tourData.parts && tourData.parts.map((part, index) => (
             <img key={index} id={`roomImage-${part._id}`} src={part.imageUrl} alt={part.title} />
           ))}
         </a-assets>
