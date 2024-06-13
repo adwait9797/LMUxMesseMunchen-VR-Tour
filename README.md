@@ -1,5 +1,16 @@
 LMUxMesse_München-VR-Tour-Build-Git
 
+### Branding guidelines:
+
+Messe colour: #5090CD
+
+for the transperant cards across the app try and use black colour as the main bg colour with 75% transperancy and use a background blur.
+
+We want to use the font Montserrat which is already imported in the index file
+
+If you want to use any new icons, please download them from https://fonts.google.com/icons as svg files, place them in the frontend/src/components/assets folder and use them after that, this will help us load resources faster and reduce dependecies.
+
+
 
 
 ### Instructions to Clone and Set Up the Project
