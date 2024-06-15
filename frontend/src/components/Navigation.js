@@ -4,7 +4,7 @@ import infoIcon from './assets/info_icon.svg';
 import mapIcon from './assets/map_icon.svg';
 import shareIcon from './assets/share_icon.svg';
 
-const Navigation = ({ currentRoom }) => {
+const Navigation = ({ currentRoom, onNavigationClick }) => {
   return (
     <div className="navigation">
       <h2>{currentRoom}</h2>
@@ -12,8 +12,9 @@ const Navigation = ({ currentRoom }) => {
         <div className="icon-container">
           <img src={infoIcon} alt="Info" className="icon" />
         </div>
-        <div className="icon-container">
-          <img src={mapIcon} alt="Map" className="icon" />
+        <div className="icon-container navigation-button" onClick={onNavigationClick}>
+          <img src={mapIcon} alt="Navigation" className="icon" />
+          <span>Navigation</span>
         </div>
         <div className="icon-container">
           <img src={shareIcon} alt="Share" className="icon" />

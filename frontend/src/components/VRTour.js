@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'aframe';
 import './VRTour.css';
-import menuIcon from './assets/menu_icon.svg';
 import Navigation from './Navigation';
+import RoomOverlay from './RoomOverlay';
 
 function VRTour() {
   const [tourData, setTourData] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
   useEffect(() => {
     const fetchTourData = async () => {
@@ -16,9 +16,7 @@ function VRTour() {
         const response = await axios.get('http://localhost:5002/api/tour');
         console.log('Tour data fetched:', response.data);
         setTourData(response.data);
-        if (response.data.parts && response.data.parts.length > 0) {
-          setSelectedRoom(response.data.parts[0]);
-        }
+        setSelectedRoom(response.data.parts[0]);
       } catch (error) {
         console.error('Error fetching tour data:', error);
       }
@@ -32,23 +30,25 @@ function VRTour() {
       const scene = document.querySelector('a-scene');
       let skyElement = document.querySelector('a-sky');
       if (skyElement) {
-        skyElement.setAttribute('src', selectedRoom.imageUrl);
-      } else {
-        skyElement = document.createElement('a-sky');
-        skyElement.setAttribute('src', selectedRoom.imageUrl);
-        scene.appendChild(skyElement);
+        scene.removeChild(skyElement);
       }
+      skyElement = document.createElement('a-sky');
+      skyElement.setAttribute('src', selectedRoom.imageUrl);
+      scene.appendChild(skyElement);
     }
   }, [selectedRoom]);
 
-  const handleMenuClick = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const handleOverlayOpen = () => {
+    setIsOverlayOpen(true);
+  };
+
+  const handleOverlayClose = () => {
+    setIsOverlayOpen(false);
   };
 
   const handleRoomSelect = (room) => {
-    console.log('Room selected:', room);
     setSelectedRoom(room);
-    setIsMenuOpen(false);
+    setIsOverlayOpen(false);
   };
 
   if (!tourData) {
@@ -57,28 +57,18 @@ function VRTour() {
 
   return (
     <div className="vr-tour">
-      <Navigation currentRoom={selectedRoom ? selectedRoom.title : 'Loading...'} />
-      <div className="menu-strip" onClick={handleMenuClick}>
-        <img src={menuIcon} alt="Menu" className="menu-icon" />
-        {selectedRoom && (
-          <div className="room-info">
-            <div className="room-title">{selectedRoom.title}</div>
-            <div className="room-description">{selectedRoom.description}</div>
-          </div>
-        )}
-      </div>
-      {isMenuOpen && (
-        <div className="menu">
-          {tourData.parts && tourData.parts.map((part, index) => (
-            <div key={index} className="menu-item" onClick={() => handleRoomSelect(part)}>
-              {part.title}
-            </div>
-          ))}
-        </div>
+      <Navigation currentRoom={selectedRoom ? selectedRoom.title : 'Loading...'} onNavigationClick={handleOverlayOpen} />
+      {isOverlayOpen && (
+        <RoomOverlay
+          currentRoom={selectedRoom ? selectedRoom.title : 'Loading...'}
+          rooms={tourData.parts}
+          onRoomSelect={handleRoomSelect}
+          onClose={handleOverlayClose}
+        />
       )}
       <a-scene embedded>
         <a-assets>
-          {tourData.parts && tourData.parts.map((part, index) => (
+          {tourData.parts.map((part, index) => (
             <img key={index} id={`roomImage-${part._id}`} src={part.imageUrl} alt={part.title} />
           ))}
         </a-assets>

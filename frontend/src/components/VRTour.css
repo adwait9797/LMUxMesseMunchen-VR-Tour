@@ -65,13 +65,18 @@
 }
 
 .back-to-home-button {
-  background-color: #5090CD;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.25); /* Same as the icon containers */
   color: white;
   border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
+  border-radius: 50px; /* More rounded corners for the button */
   cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
   position: absolute;
   bottom: 20px;
   left: 50%;
@@ -80,7 +85,12 @@
 }
 
 .back-to-home-button:hover {
-  background-color: #407bbd;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.back-to-home-button:active {
+  background-color: rgba(0, 0, 0, 0.3);
+  transform: scale(0.95);
 }
 
 a-scene {
