@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import 'aframe';
 import './CombinedRooms.css';
 import audioFile from './audio/west_entrance.mp3';
-import { ReactComponent as PlayIcon } from './assets/play.svg'; 
+import { ReactComponent as PlayIcon } from './assets/play.svg';
 import { ReactComponent as PauseIcon } from './assets/pause.svg';
 
 const CombinedRooms = () => {
@@ -15,14 +15,13 @@ const CombinedRooms = () => {
   const intervalRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
 
-  // Calculate progress percentage based on the current index
-  const progressPercentage = ((currentSceneIndex + 1) / scenes.length) * 100;
-
   useEffect(() => {
+    function handleSceneChange() {
+      setCurrentSceneIndex(prevIndex => (prevIndex + 1) % scenes.length);
+    }
+
     if (isPlaying) {
-      intervalRef.current = setInterval(() => {
-        setCurrentSceneIndex(prevIndex => (prevIndex + 1) % scenes.length);
-      }, 6000); // Change scene every 6 seconds
+      intervalRef.current = setInterval(handleSceneChange, 6000); // Change scene every 6 seconds
     } else {
       clearInterval(intervalRef.current);
     }
@@ -32,7 +31,13 @@ const CombinedRooms = () => {
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
+    if (!isPlaying) {
+      // If currently paused, immediately progress to the next scene on play
+      setCurrentSceneIndex(prevIndex => (prevIndex + 1) % scenes.length);
+    }
   };
+
+  const progressPercentage = ((currentSceneIndex + 1) / scenes.length) * 100;
 
   return (
     <div className="scene-container">
@@ -51,14 +56,14 @@ const CombinedRooms = () => {
       </a-scene>
 
       <div className="timeline-container">
-        <div className="timeline-progress" style={{ width: `${progressPercentage}%` }}></div>
+        <div className="timeline-progress" style={{ width: `${progressPercentage}%`, transition: 'width 6s linear' }}></div>
       </div>
 
-      <button className="play-pause-button" onClick={togglePlayPause}>
+      <button className="play-pause-button" onClick={togglePlayPause} title={isPlaying ? "Pause Tour" : "Resume Tour"}>
         {isPlaying ? <PauseIcon /> : <PlayIcon />}
       </button>
     </div>
   );
-}
+};
 
 export default CombinedRooms;
