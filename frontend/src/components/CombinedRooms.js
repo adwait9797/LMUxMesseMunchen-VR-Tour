@@ -15,29 +15,27 @@ const CombinedRooms = () => {
   const intervalRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
 
+  // Calculate progress percentage based on the current index
+  const progressPercentage = ((currentSceneIndex + 1) / scenes.length) * 100;
+
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setCurrentSceneIndex(prevIndex => (prevIndex + 1) % scenes.length);
-    }, 6000); // Change scene every 6 seconds
-
-    return () => clearInterval(intervalRef.current);
-  }, []);
-
-  const progressPercentage = (currentSceneIndex + 1) / scenes.length * 100;
-
-  const togglePlayPause = () => {
     if (isPlaying) {
-      clearInterval(intervalRef.current);
-    } else {
       intervalRef.current = setInterval(() => {
         setCurrentSceneIndex(prevIndex => (prevIndex + 1) % scenes.length);
-      }, 6000);
+      }, 6000); // Change scene every 6 seconds
+    } else {
+      clearInterval(intervalRef.current);
     }
+
+    return () => clearInterval(intervalRef.current);
+  }, [isPlaying, scenes.length]);
+
+  const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
 
   return (
-    <div className="scene-container"> 
+    <div className="scene-container">
       <a-scene>
         <a-assets>
           <audio id="tour" src={audioFile} preload="auto"></audio>
@@ -53,18 +51,11 @@ const CombinedRooms = () => {
       </a-scene>
 
       <div className="timeline-container">
-        <div className="timeline-progress" style={{
-          width: `${progressPercentage}%`,
-          transition: isPlaying ? 'width 6s linear' : 'none'
-        }}></div>
+        <div className="timeline-progress" style={{ width: `${progressPercentage}%` }}></div>
       </div>
 
       <button className="play-pause-button" onClick={togglePlayPause}>
-        {isPlaying ? (
-          <PauseIcon /> // Use the pauseIcon prop
-        ) : (
-          <PlayIcon /> // Use the playIcon prop
-        )}
+        {isPlaying ? <PauseIcon /> : <PlayIcon />}
       </button>
     </div>
   );
