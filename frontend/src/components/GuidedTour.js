@@ -22,7 +22,7 @@ const GuidedTour = () => {
               <p><VRHeadsetIcon className="vr-icon" /> To view the virtual reality version of this story, visit this page using your Oculus Rift.</p>
             </div>
          
-            <button className="start-button">Start Tour</button>
+            <button className="start-button">Start Guided Tour</button>
 
           </div>
         </div>
