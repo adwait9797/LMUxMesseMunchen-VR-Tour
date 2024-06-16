@@ -13,11 +13,11 @@ function VRTour() {
   useEffect(() => {
     const fetchTourData = async () => {
       try {
-        const response = await axios.get('http://localhost:5002/api/tour');
+        const response = await axios.get('http://localhost:5002/api/tours');
         console.log('Tour data fetched:', response.data);
         setTourData(response.data);
-        if (response.data.parts && response.data.parts.length > 0) {
-          setSelectedRoom(response.data.parts[0]);
+        if (response.data[0].parts && response.data[0].parts.length > 0) {
+          setSelectedRoom(response.data[0].parts[0]);
         }
       } catch (error) {
         console.error('Error fetching tour data:', error);
@@ -29,6 +29,7 @@ function VRTour() {
 
   useEffect(() => {
     if (selectedRoom) {
+      console.log('Selected room:', selectedRoom);
       const scene = document.querySelector('a-scene');
       let skyElement = document.querySelector('a-sky');
       if (skyElement) {
@@ -69,17 +70,21 @@ function VRTour() {
       </div>
       {isMenuOpen && (
         <div className="menu">
-          {tourData.parts && tourData.parts.map((part, index) => (
-            <div key={index} className="menu-item" onClick={() => handleRoomSelect(part)}>
-              {part.title}
-            </div>
+          {tourData.map((tour, tourIndex) => (
+            tour.parts && tour.parts.map((part, partIndex) => (
+              <div key={`${tourIndex}-${partIndex}`} className="menu-item" onClick={() => handleRoomSelect(part)}>
+                {part.title}
+              </div>
+            ))
           ))}
         </div>
       )}
       <a-scene embedded>
         <a-assets>
-          {tourData.parts && tourData.parts.map((part, index) => (
-            <img key={index} id={`roomImage-${part._id}`} src={part.imageUrl} alt={part.title} />
+          {tourData.map((tour, tourIndex) => (
+            tour.parts && tour.parts.map((part, partIndex) => (
+              <img key={`${tourIndex}-${part._id}`} id={`roomImage-${part._id}`} src={part.imageUrl} alt={part.title} />
+            ))
           ))}
         </a-assets>
         {selectedRoom && (
