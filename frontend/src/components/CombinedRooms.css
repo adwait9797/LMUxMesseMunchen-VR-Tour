@@ -1,0 +1,35 @@
+  .scene-container {
+    position: relative; /* Allow absolute positioning of timeline */
+  }
+  
+  .timeline-container {
+    width: 80%; 
+    height: 10px; 
+    margin: 20px auto;
+    background-color: #e0e0e0; 
+    border-radius: 5px; 
+    overflow: hidden;
+    position: absolute;
+    bottom: 20px; 
+    left: 0;
+    right: 0;
+    z-index: 10; 
+  }
+  
+  .timeline-progress {
+    height: 100%;
+    background-color: #6a91ce;; 
+    width: 0%;  
+  }
+  
+  .play-pause-button {
+    position: absolute;
+    bottom: 20px; 
+    right: 20px;
+    background: none; 
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+  }
+  
