@@ -1,0 +1,70 @@
+/* General Background and Alignment */
+.background-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('../../public/assets/entrance_west.jpg') no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+/* Overlay that affects only the photo */
+.background-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);  /* Adjust darkness as needed */
+  z-index: 0;  /* Ensure it does not overlay content */
+}
+
+/* Content Container - Left-aligned and readable */
+.content-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  text-align: left;
+  padding: 20px;  /* Adjust padding for spacing */
+  z-index: 1;  /* Above the overlay */
+  margin: 0 auto;  /* Center in page */
+  background: rgba(0, 0, 0, 0.7);  /* Dark background with good transparency */
+  border-radius: 8px;  /* Optional: adds rounded corners */
+}
+
+/* Logo and Text Content */
+.logo-container {
+  margin-bottom: 160px;  /* Space below the logo */
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+}
+
+.text-content {
+  color: #ffffff;  
+  margin-bottom: 20px;  /* Space below text content */
+  font-size: 1.2rem;  /* Enhance font size for readability */
+}
+
+.audio-icon, .vr-icon {
+  width: 24px;
+  height: auto;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* Horizontal Line */
+.horizontal-line {
+  border-top: 1px solid #666;  /* Subtle contrast */
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #444;
+}
+

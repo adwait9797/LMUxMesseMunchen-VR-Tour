@@ -1,12 +1,33 @@
-// GuidedTour.js
 import React from 'react';
+import './Home.css';
+import './GuidedTour.css';
+import logo from './assets/logo.png'; // Ensure this path is correct
+import { ReactComponent as HeadphonesIcon } from './assets/headphones.svg';
+import { ReactComponent as VRHeadsetIcon } from './assets/head_mounted_device_icon.svg';
 
 const GuidedTour = () => {
-  return (
-    <div>
-      Welcome to the Guided Tour Page
-    </div>
-  );
+    return (
+      <div className="background-image">
+        <div className="content-container">
+          <div className="logo-container">
+            <img src={logo} alt="Messe Muenchen Logo" className="logo" />
+          </div>
+          <div className="text-content">
+            <h1>Welcome to the Guided Tour</h1>
+            <h4>Experience our world-class event spaces as if you were there in person.</h4>
+            <div className="horizontal-line"></div>
+            <p><HeadphonesIcon className="audio-icon" /> Use your headphones for immersive audio.</p>
+            <div className="horizontal-line"></div>
+            <div className="vr-mode">
+              <p><VRHeadsetIcon className="vr-icon" /> To view the virtual reality version of this story, visit this page using your Oculus Rift.</p>
+            </div>
+         
+            <button className="start-button">Start Tour</button>
+
+          </div>
+        </div>
+      </div>
+    );
 };
 
 export default GuidedTour;
