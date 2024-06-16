@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import 'aframe';
 import './CombinedRooms.css';
-import audioFile from './audio/west_entrance.mp3';
+import audioFile from './assets/audio/west_entrance.mp3';
 import { ReactComponent as PlayIcon } from './assets/play.svg';
 import { ReactComponent as PauseIcon } from './assets/pause.svg';
 
@@ -13,7 +13,8 @@ const CombinedRooms = () => {
     { id: 'hall1', url: '/assets/Auditorium.jpg', title: 'Messe Muenchen Hall' }
   ];
   const intervalRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     function handleSceneChange() {
@@ -31,9 +32,10 @@ const CombinedRooms = () => {
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
-    if (!isPlaying) {
-      // If currently paused, immediately progress to the next scene on play
-      setCurrentSceneIndex(prevIndex => (prevIndex + 1) % scenes.length);
+    if (!isPlaying && audioRef.current) {
+      audioRef.current.play().catch(err => console.error('Error playing audio:', err));
+    } else if (audioRef.current) {
+      audioRef.current.pause();
     }
   };
 
@@ -43,7 +45,7 @@ const CombinedRooms = () => {
     <div className="scene-container">
       <a-scene>
         <a-assets>
-          <audio id="tour" src={audioFile} preload="auto"></audio>
+          <audio ref={audioRef} id="tour" src={audioFile} preload="auto"></audio>
         </a-assets>
 
         <a-camera position="0 1.6 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear;"></a-camera>
