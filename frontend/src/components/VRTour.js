@@ -13,10 +13,12 @@ function VRTour() {
   useEffect(() => {
     const fetchTourData = async () => {
       try {
-        const response = await axios.get('http://localhost:5002/api/tour');
+        const response = await axios.get('http://localhost:5002/api/tours');
         console.log('Tour data fetched:', response.data);
         setTourData(response.data);
-        setSelectedRoom(response.data.parts[0]);
+        if (response.data[0].parts && response.data[0].parts.length > 0) {
+          setSelectedRoom(response.data[0].parts[0]);
+        }
       } catch (error) {
         console.error('Error fetching tour data:', error);
       }
@@ -27,6 +29,7 @@ function VRTour() {
 
   useEffect(() => {
     if (selectedRoom) {
+      console.log('Selected room:', selectedRoom);
       const scene = document.querySelector('a-scene');
       let skyElement = document.querySelector('a-sky');
       if (skyElement) {
@@ -61,14 +64,14 @@ function VRTour() {
       {isOverlayOpen && (
         <RoomOverlay
           currentRoom={selectedRoom ? selectedRoom.title : 'Loading...'}
-          rooms={tourData.parts}
+          rooms={tourData[0].parts}
           onRoomSelect={handleRoomSelect}
           onClose={handleOverlayClose}
         />
       )}
       <a-scene embedded>
         <a-assets>
-          {tourData.parts.map((part, index) => (
+          {tourData[0].parts.map((part, index) => (
             <img key={index} id={`roomImage-${part._id}`} src={part.imageUrl} alt={part.title} />
           ))}
         </a-assets>

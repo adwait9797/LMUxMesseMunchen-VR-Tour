@@ -14,8 +14,10 @@ const Home = () => {
   };
 
   const handleStartTour = () => {
+    // This checks which option is selected and navigates accordingly
     if (selectedOption) {
-      navigate('/vrtour');
+      const destination = selectedOption === 'guided' ? '/guided-tour' : '/vrtour';
+      navigate(destination);
     }
   };
 

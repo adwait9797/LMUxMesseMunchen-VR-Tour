@@ -1,15 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const Tour = require('../models/Tour');
+const tourController = require('../Controllers/tourController');
 
-// GET all tour parts
-router.get('/api/tour', async (req, res) => {
-  try {
-    const tour = await Tour.findOne();
-    res.json(tour);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+// GET all tours
+router.get('/', tourController.getAllTours);
+
+// GET a single tour by ID
+router.get('/:id', tourController.getTourById);
+
+// CREATE a new tour
+router.post('/', tourController.createTour);
+
+// UPDATE a tour
+router.put('/:id', tourController.updateTour);
+
+// DELETE a tour
+router.delete('/:id', tourController.deleteTour);
 
 module.exports = router;
