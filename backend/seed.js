@@ -14,7 +14,9 @@ db.once('open', async () => {
   await Tour.deleteMany({});
   
   const sampleTour = new Tour({
-    title: 'Sample VR Tour',
+    name: 'Sample Tour', // Added field
+    type: 'Virtual', // Added field
+    description: 'A sample VR tour of Messe München.', // Added field
     parts: [
       { title: 'Main Hall', description: 'The main hall of the Messe München.', imageUrl: 'assets/main_hall.jpg' },
       { title: 'Auditorium', description: 'The auditorium of the Messe München.', imageUrl: 'assets/Auditorium.jpg' },

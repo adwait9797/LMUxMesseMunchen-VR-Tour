@@ -15,9 +15,12 @@ function VRTour() {
       try {
         const response = await axios.get('http://localhost:5002/api/tours');
         console.log('Tour data fetched:', response.data);
-        setTourData(response.data);
-        if (response.data[0].parts && response.data[0].parts.length > 0) {
+        // Check if the response data has the expected structure
+        if (response.data[0] && response.data[0].parts) {
+          setTourData(response.data[0]);
           setSelectedRoom(response.data[0].parts[0]);
+        } else {
+          console.error('Unexpected tour data structure:', response.data);
         }
       } catch (error) {
         console.error('Error fetching tour data:', error);
@@ -64,14 +67,14 @@ function VRTour() {
       {isOverlayOpen && (
         <RoomOverlay
           currentRoom={selectedRoom ? selectedRoom.title : 'Loading...'}
-          rooms={tourData[0].parts}
+          rooms={tourData.parts}
           onRoomSelect={handleRoomSelect}
           onClose={handleOverlayClose}
         />
       )}
       <a-scene embedded>
         <a-assets>
-          {tourData[0].parts.map((part, index) => (
+          {tourData.parts.map((part, index) => (
             <img key={index} id={`roomImage-${part._id}`} src={part.imageUrl} alt={part.title} />
           ))}
         </a-assets>
