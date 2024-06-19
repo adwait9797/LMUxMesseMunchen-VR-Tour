@@ -7,14 +7,20 @@ import { ReactComponent as PauseIcon } from './assets/pause.svg';
 
 const CombinedRooms = () => {
   const [currentSceneIndex, setCurrentSceneIndex] = useState(0);
-  const scenes = [
-    { id: 'lobby', url: '/assets/first_entrance.jpg', title: 'Messe Muenchen Lobby' },
-    { id: 'lounge', url: '/assets/entrance_west.jpg', title: 'Messe Muenchen Lounge' },
-    { id: 'hall1', url: '/assets/Auditorium.jpg', title: 'Messe Muenchen Hall' }
-  ];
-  const intervalRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
   const audioRef = useRef(null);
+
+  const scenes = [
+    { id: 'lobby', url: '/assets/first_entrance.jpg' },
+    { id: 'lounge', url: '/assets/entrance_west.jpg' },
+    { id: 'main_hall', url: '/assets/main_hall.jpg' },
+    { id: 'hall1', url: '/assets/hall1.jpg' },
+    { id: 'hall2', url: '/assets/hall2.jpg' },
+    { id: 'B0', url: '/assets/B0.jpg' }, 
+  ];
+
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     function handleSceneChange() {
@@ -23,12 +29,25 @@ const CombinedRooms = () => {
 
     if (isPlaying) {
       intervalRef.current = setInterval(handleSceneChange, 6000); // Change scene every 6 seconds
+      setProgress(0);
     } else {
       clearInterval(intervalRef.current);
     }
 
     return () => clearInterval(intervalRef.current);
   }, [isPlaying, scenes.length]);
+
+  useEffect(() => {
+    let progressInterval;
+    if (isPlaying) {
+      progressInterval = setInterval(() => {
+        setProgress(prev => (prev + 100 / (6000 / 100)) % 100);
+      }, 100);
+    } else {
+      setProgress(0);
+    }
+    return () => clearInterval(progressInterval);
+  }, [isPlaying]);
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
@@ -38,6 +57,18 @@ const CombinedRooms = () => {
       audioRef.current.pause();
     }
   };
+
+  useEffect(() => {
+    if (currentSceneIndex === 0 && !isPlaying) {
+      setProgress(0);
+    }
+  }, [currentSceneIndex, isPlaying]);
+
+  useEffect(() => {
+    if (currentSceneIndex === scenes.length - 1 && progress === 100) {
+      setIsPlaying(false);
+    }
+  }, [progress, currentSceneIndex, scenes.length]);
 
   const progressPercentage = ((currentSceneIndex + 1) / scenes.length) * 100;
 
@@ -51,19 +82,18 @@ const CombinedRooms = () => {
         <a-camera position="0 1.6 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear;"></a-camera>
 
         {scenes.map((scene, index) => (
-          <a-sky key={scene.id} src={scene.url} visible={index === currentSceneIndex}>
-            <a-text value={scene.title} font="kelsonsans" width="6" position="-2.5 0.25 -1.5" rotation="0 15 0"></a-text>
-          </a-sky>
+          <a-sky key={scene.id} src={scene.url} visible={index === currentSceneIndex}></a-sky>
         ))}
       </a-scene>
 
-      <div className="timeline-container">
-        <div className="timeline-progress" style={{ width: `${progressPercentage}%`, transition: 'width 6s linear' }}></div>
+      <div className="controls-container">
+        <button className="play-pause-button" onClick={togglePlayPause} title={isPlaying ? 'Pause Tour' : 'Play Tour'}>
+          {isPlaying ? <PauseIcon /> : <PlayIcon />}
+        </button>
+        <div className="progress-bar">
+          <div className="progress" style={{ width: `${progressPercentage}%` }}></div>
+        </div>
       </div>
-
-      <button className="play-pause-button" onClick={togglePlayPause} title={isPlaying ? "Pause Tour" : "Resume Tour"}>
-        {isPlaying ? <PauseIcon /> : <PlayIcon />}
-      </button>
     </div>
   );
 };
