@@ -4,12 +4,12 @@ import infoIcon from './assets/info_icon.svg';
 import mapIcon from './assets/map_icon.svg';
 import shareIcon from './assets/share_icon.svg';
 
-const Navigation = ({ currentRoom, onNavigationClick }) => {
+const Navigation = ({ currentRoom, onNavigationClick, onInfoClick }) => {
   return (
     <div className="navigation">
       <h2>{currentRoom}</h2>
       <div className="icons">
-        <div className="icon-container">
+        <div className="icon-container" onClick={onInfoClick}>
           <img src={infoIcon} alt="Info" className="icon" />
         </div>
         <div className="icon-container navigation-button" onClick={onNavigationClick}>

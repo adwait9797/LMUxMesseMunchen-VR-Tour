@@ -4,18 +4,20 @@ import 'aframe';
 import './VRTour.css';
 import Navigation from './Navigation';
 import RoomOverlay from './RoomOverlay';
+import InfoOverlay from './InfoOverlay'; // Import the InfoOverlay component
 
 function VRTour() {
   const [tourData, setTourData] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+  const [isInfoOverlayOpen, setIsInfoOverlayOpen] = useState(false); // State for InfoOverlay
+  const [currentRoomInfo, setCurrentRoomInfo] = useState(null); // State to hold the current room information
 
   useEffect(() => {
     const fetchTourData = async () => {
       try {
         const response = await axios.get('http://localhost:5002/api/tours');
         console.log('Tour data fetched:', response.data);
-        // Check if the response data has the expected structure
         if (response.data[0] && response.data[0].parts) {
           setTourData(response.data[0]);
           setSelectedRoom(response.data[0].parts[0]);
@@ -57,13 +59,26 @@ function VRTour() {
     setIsOverlayOpen(false);
   };
 
+  const handleInfoClick = () => {
+    setCurrentRoomInfo(selectedRoom);
+    setIsInfoOverlayOpen(true);
+  };
+
+  const handleInfoOverlayClose = () => {
+    setIsInfoOverlayOpen(false);
+  };
+
   if (!tourData) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="vr-tour">
-      <Navigation currentRoom={selectedRoom ? selectedRoom.title : 'Loading...'} onNavigationClick={handleOverlayOpen} />
+      <Navigation
+        currentRoom={selectedRoom ? selectedRoom.title : 'Loading...'}
+        onNavigationClick={handleOverlayOpen}
+        onInfoClick={handleInfoClick} // Pass the info click handler
+      />
       {isOverlayOpen && (
         <RoomOverlay
           currentRoom={selectedRoom ? selectedRoom.title : 'Loading...'}
@@ -71,6 +86,9 @@ function VRTour() {
           onRoomSelect={handleRoomSelect}
           onClose={handleOverlayClose}
         />
+      )}
+      {isInfoOverlayOpen && (
+        <InfoOverlay roomInfo={currentRoomInfo} onClose={handleInfoOverlayClose} />
       )}
       <a-scene embedded>
         <a-assets>
@@ -90,3 +108,4 @@ function VRTour() {
 }
 
 export default VRTour;
+
