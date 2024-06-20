@@ -28,7 +28,7 @@ const CombinedRooms = () => {
     }
 
     if (isPlaying) {
-      intervalRef.current = setInterval(handleSceneChange, 6000); // Change scene every 6 seconds
+      intervalRef.current = setInterval(handleSceneChange, 30000); // Change scene every 30 seconds
       setProgress(0);
     } else {
       clearInterval(intervalRef.current);
@@ -41,7 +41,7 @@ const CombinedRooms = () => {
     let progressInterval;
     if (isPlaying) {
       progressInterval = setInterval(() => {
-        setProgress(prev => (prev + 100 / (6000 / 100)) % 100);
+        setProgress(prev => (prev + 100 / (30000 / 100)) % 100);
       }, 100);
     } else {
       setProgress(0);
