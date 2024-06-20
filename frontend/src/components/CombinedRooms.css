@@ -8,10 +8,22 @@
 .controls-container {
   position: absolute;
   bottom: 20px;
-  left: 20px;
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   z-index: 1000;
+}
+
+.left-controls {
+  display: flex;
+  align-items: center;
+}
+
+.right-controls {
+  justify-content: flex-end;
+  display: flex;
 }
 
 .play-pause-button {
@@ -24,7 +36,6 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  margin-right: 10px;
 }
 
 .play-pause-button svg {
@@ -39,11 +50,20 @@
   background: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   overflow: hidden;
-  position: relative;
+  margin-left: 10px; /* Space between play/pause button and progress bar */
 }
 
 .progress {
   height: 100%;
   background: rgba(255, 255, 255, 0.8);
   transition: width 0.1s linear;
+}
+
+.back-to-home-button {
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

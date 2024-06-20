@@ -44,6 +44,7 @@ const CombinedRooms = () => {
         setProgress(prev => (prev + 100 / (30000 / 100)) % 100);
       }, 100);
     } else {
+      clearInterval(progressInterval);
       setProgress(0);
     }
     return () => clearInterval(progressInterval);
@@ -57,18 +58,6 @@ const CombinedRooms = () => {
       audioRef.current.pause();
     }
   };
-
-  useEffect(() => {
-    if (currentSceneIndex === 0 && !isPlaying) {
-      setProgress(0);
-    }
-  }, [currentSceneIndex, isPlaying]);
-
-  useEffect(() => {
-    if (currentSceneIndex === scenes.length - 1 && progress === 100) {
-      setIsPlaying(false);
-    }
-  }, [progress, currentSceneIndex, scenes.length]);
 
   const progressPercentage = ((currentSceneIndex + 1) / scenes.length) * 100;
 
@@ -87,11 +76,18 @@ const CombinedRooms = () => {
       </a-scene>
 
       <div className="controls-container">
-        <button className="play-pause-button" onClick={togglePlayPause} title={isPlaying ? 'Pause Tour' : 'Play Tour'}>
-          {isPlaying ? <PauseIcon /> : <PlayIcon />}
-        </button>
-        <div className="progress-bar">
-          <div className="progress" style={{ width: `${progressPercentage}%` }}></div>
+        <div className="left-controls">
+          <button className="play-pause-button" onClick={togglePlayPause} title={isPlaying ? 'Pause Tour' : 'Play Tour'}>
+            {isPlaying ? <PauseIcon /> : <PlayIcon />}
+          </button>
+          <div className="progress-bar">
+            <div className="progress" style={{ width: `${progressPercentage}%` }}></div>
+          </div>
+        </div>
+        <div className="right-controls">
+          <button className="back-to-home-button" onClick={() => window.location.href = '/'}>
+            Back to Home
+          </button>
         </div>
       </div>
     </div>
