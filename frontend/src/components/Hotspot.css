@@ -1,0 +1,8 @@
+.hotspot-overlay {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 10;
+    pointer-events: auto;
+}

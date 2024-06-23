@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'aframe';
+import 'aframe-event-set-component';
+import 'aframe-look-at-component';
 import './VRTour.css';
 import Navigation from './Navigation';
 import RoomOverlay from './RoomOverlay';
-import InfoOverlay from './InfoOverlay'; // Import the InfoOverlay component
+import InfoOverlay from './InfoOverlay';
+import Hotspot from './Hotspot';
+import HotspotOverlay from './HotspotOverlay'; 
+import closeIcon from './assets/close_icon.svg';
 
 function VRTour() {
   const [tourData, setTourData] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
-  const [isInfoOverlayOpen, setIsInfoOverlayOpen] = useState(false); // State for InfoOverlay
-  const [currentRoomInfo, setCurrentRoomInfo] = useState(null); // State to hold the current room information
+  const [isHotspotOverlayOpen, setIsHotspotOverlayOpen] = useState(false);
+  const [isInfoOverlayOpen, setIsInfoOverlayOpen] = useState(false);
+  const [currentHotspot, setCurrentHotspot] = useState(null);
+  const [currentRoomInfo, setCurrentRoomInfo] = useState(null);
 
   useEffect(() => {
     const fetchTourData = async () => {
@@ -59,6 +66,15 @@ function VRTour() {
     setIsOverlayOpen(false);
   };
 
+  const handleHotspotClick = (hotspot) => {
+    setCurrentHotspot(hotspot);
+    setIsHotspotOverlayOpen(true);
+  };
+
+  const handleHotspotOverlayClose = () => {
+    setIsHotspotOverlayOpen(false);
+  };
+
   const handleInfoClick = () => {
     setCurrentRoomInfo(selectedRoom);
     setIsInfoOverlayOpen(true);
@@ -77,7 +93,7 @@ function VRTour() {
       <Navigation
         currentRoom={selectedRoom ? selectedRoom.title : 'Loading...'}
         onNavigationClick={handleOverlayOpen}
-        onInfoClick={handleInfoClick} // Pass the info click handler
+        onInfoClick={handleInfoClick}
       />
       {isOverlayOpen && (
         <RoomOverlay
@@ -87,7 +103,7 @@ function VRTour() {
           onClose={handleOverlayClose}
         />
       )}
-      {isInfoOverlayOpen && (
+      {isInfoOverlayOpen && currentRoomInfo && (
         <InfoOverlay roomInfo={currentRoomInfo} onClose={handleInfoOverlayClose} />
       )}
       <a-scene embedded>
@@ -95,9 +111,19 @@ function VRTour() {
           {tourData.parts.map((part, index) => (
             <img key={index} id={`roomImage-${part._id}`} src={part.imageUrl} alt={part.title} />
           ))}
+          <img id="closeIcon" src={closeIcon} alt="Close Icon" />
         </a-assets>
+        <a-camera id="camera">
+          <a-cursor color="transparent" rayOrigin="mouse"></a-cursor>
+        </a-camera>
         {selectedRoom && (
           <a-sky src={selectedRoom.imageUrl}></a-sky>
+        )}
+        {selectedRoom.hotspots && selectedRoom.hotspots.map((hotspot, index) => (
+          <Hotspot key={index} hotspot={hotspot} handleHotspotClick={handleHotspotClick} />
+        ))}
+        {isHotspotOverlayOpen && currentHotspot && (
+          <HotspotOverlay hotspot={currentHotspot} onClose={handleHotspotOverlayClose} />
         )}
       </a-scene>
       <button className="back-to-home-button" onClick={() => window.location.href = '/'}>

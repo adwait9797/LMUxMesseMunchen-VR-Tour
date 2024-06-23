@@ -25,3 +25,4 @@ const Navigation = ({ currentRoom, onNavigationClick, onInfoClick }) => {
 };
 
 export default Navigation;
+
