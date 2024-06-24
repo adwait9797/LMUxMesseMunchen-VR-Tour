@@ -3,6 +3,10 @@ import './InfoOverlay.css';
 import closeIcon from './assets/close_icon.svg';
 
 const InfoOverlay = ({ roomInfo, onClose }) => {
+  if (!roomInfo) {
+    return null;
+  }
+
   return (
     <div className="info-overlay">
       <div className="close-overlay" onClick={onClose}>
@@ -18,3 +22,4 @@ const InfoOverlay = ({ roomInfo, onClose }) => {
 };
 
 export default InfoOverlay;
+

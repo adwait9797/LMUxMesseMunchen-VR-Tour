@@ -14,17 +14,73 @@ db.once('open', async () => {
   await Tour.deleteMany({});
   
   const sampleTour = new Tour({
-    name: 'Sample Tour', // Added field
-    type: 'Virtual', // Added field
-    description: 'A sample VR tour of Messe München.', // Added field
+    name: 'Sample Tour',
+    type: 'Virtual',
+    description: 'A sample VR tour of Messe München.',
     parts: [
-      { title: 'Main Hall', description: 'The main hall of the Messe München.', imageUrl: 'assets/main_hall.jpg' },
-      { title: 'Auditorium', description: 'The auditorium of the Messe München.', imageUrl: 'assets/Auditorium.jpg' },
-      { title: 'Entrance West', description: 'The west entrance of the Messe München.', imageUrl: 'assets/entrance_west.jpg' },
-      { title: 'First Entrance', description: 'The first entrance of the Messe München.', imageUrl: 'assets/first_entrance.jpg' },
-      { title: 'Hall 1', description: 'The first hall of the Messe München.', imageUrl: 'assets/hall1.jpg' },
-      { title: 'Hall 2', description: 'The second hall of the Messe München.', imageUrl: 'assets/hall2.jpg' },
-      { title: 'B0', description: 'The B0 hall of the Messe München.', imageUrl: 'assets/B0.jpg' },
+      { 
+        title: 'Main Hall', 
+        description: 'The main hall of the Messe München.', 
+        imageUrl: 'assets/main_hall.jpg',
+        hotspots: [
+          { title: 'Main Hall Info 1', position: '7 1 -3', description: 'This is the first hotspot in the Main Hall.' },
+          { title: 'Main Hall Info 2', position: '-1 2 -4', description: 'This is the second hotspot in the Main Hall.' },
+        ],
+      },
+      { 
+        title: 'Auditorium', 
+        description: 'The auditorium of the Messe München.', 
+        imageUrl: 'assets/Auditorium.jpg',
+        hotspots: [
+          { title: 'Auditorium Info 1', position: '0 1.5 -2', description: 'This is the first hotspot in the Auditorium.' },
+          { title: 'Auditorium Info 2', position: '1 -1 -3', description: 'This is the second hotspot in the Auditorium.' },
+        ],
+      },
+      { 
+        title: 'Entrance West', 
+        description: 'The west entrance of the Messe München.', 
+        imageUrl: 'assets/entrance_west.jpg',
+        hotspots: [
+          { title: 'Entrance West Info 1', position: '1 0.5 -2.5', description: 'This is the first hotspot at the Entrance West.' },
+          { title: 'Entrance West Info 2', position: '-0.5 1 -2', description: 'This is the second hotspot at the Entrance West.' },
+        ],
+      },
+      { 
+        title: 'First Entrance', 
+        description: 'The first entrance of the Messe München.', 
+        imageUrl: 'assets/first_entrance.jpg',
+        hotspots: [
+          { title: 'First Entrance Info 1', position: '1 1 -3', description: 'This is the first hotspot at the First Entrance.' },
+          { title: 'First Entrance Info 2', position: '-1 1.5 -3.5', description: 'This is the second hotspot at the First Entrance.' },
+        ],
+      },
+      { 
+        title: 'Hall 1', 
+        description: 'The first hall of the Messe München.', 
+        imageUrl: 'assets/hall1.jpg',
+        hotspots: [
+          { title: 'Hall 1 Info 1', position: '1 0.5 -2.5', description: 'This is the first hotspot in Hall 1.' },
+          { title: 'Hall 1 Info 2', position: '-0.5 1 -2', description: 'This is the second hotspot in Hall 1.' },
+        ],
+      },
+      { 
+        title: 'Hall 2', 
+        description: 'The second hall of the Messe München.', 
+        imageUrl: 'assets/hall2.jpg',
+        hotspots: [
+          { title: 'Hall 2 Info 1', position: '1 1 -3', description: 'This is the first hotspot in Hall 2.' },
+          { title: 'Hall 2 Info 2', position: '-1 2 -4', description: 'This is the second hotspot in Hall 2.' },
+        ],
+      },
+      { 
+        title: 'B0', 
+        description: 'The B0 hall of the Messe München.', 
+        imageUrl: 'assets/B0.jpg',
+        hotspots: [
+          { title: 'B0 Info 1', position: '1 1 -3', description: 'This is the first hotspot in B0.' },
+          { title: 'B0 Info 2', position: '-1 2 -4', description: 'This is the second hotspot in B0.' },
+        ],
+      },
     ],
   });
 
