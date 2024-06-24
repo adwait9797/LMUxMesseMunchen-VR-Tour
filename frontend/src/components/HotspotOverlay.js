@@ -1,48 +1,65 @@
 import React from 'react';
 import 'aframe';
-import 'aframe-look-at-component';
-import './Hotspot.css'; 
+import './Hotspot.css';
 
-const HotspotOverlay = ({ hotspot, onClose }) => (
-  <a-entity position="0 1.6 -2" look-at="#camera">
-    <a-plane
-      geometry="primitive: plane; width: 2.5; height: 1.5;"
-      material="color: white; opacity: 0.85; side: double; shader: flat"
-      position="0 0 0"
-    >
-      <a-text
-        value={hotspot.title}
-        color="black"
-        width="2.3"
-        align="center"
-        position="0 0.5 0.01"
-        font-size="0.5"
-      ></a-text>
-      <a-text
-        value={hotspot.description}
-        color="black"
-        width="2.3"
-        align="center"
-        position="0 0 0.01"
-        font-size="0.2"
-      ></a-text>
-    </a-plane>
-    <a-entity
-      geometry="primitive: circle; radius: 0.25"
-      material="color: #333; opacity: 0.8; shader: flat"
-      position="0 -0.7 0.01"
-      class="clickable"
-      onClick={onClose}
-    >
-      <a-text
-        value="Close"
-        align="center"
-        color="white"
-        position="0 0 0.02"
-        width="2"
-      ></a-text>
+const HotspotOverlay = ({ hotspot, onClose }) => {
+  const [x, y, z] = hotspot.position.split(' ').map(Number);
+  const adjustedPosition = `${x} ${y} ${parseFloat(z) + 1}`;
+
+  return (
+    <a-entity id="hotspotOverlay" position={adjustedPosition}>
+      <a-plane
+        width="6" /* Increased width */
+        height="4" /* Increased height */
+        material="color: #ffffff; opacity: 0.95; shader: flat"
+        look-at="#camera"
+        class="hotspot-overlay-background"
+      >
+        <a-text
+          value={hotspot.title}
+          color="#000000" 
+          align="center"
+          position="0 1.5 0.01" 
+          width="5"
+          font="kelsonsans"
+          shader="msdf"
+          negate="false"
+          class="hotspot-overlay-title"
+          height="1" 
+        ></a-text>
+        <a-text
+          value={hotspot.description}
+          color="#333333"
+          align="center"
+          position="0 0.5 0.01"
+          width="5"
+          font="kelsonsans"
+          shader="msdf"
+          negate="false"
+          class="hotspot-overlay-description"
+          height="0.8" 
+        ></a-text>
+        <a-circle
+          radius="0.6"
+          position="0 -1.7 0.01" /* Adjusted position */
+          material="color: #333333; opacity: 0.8"
+          class="clickable hotspot-overlay-close"
+          onClick={onClose}
+        >
+          <a-text
+            value="Close"
+            color="#ffffff"
+            align="center"
+            position="0 0 0.01"
+            width="4"
+            font="kelsonsans"
+            shader="msdf"
+            negate="false"
+          ></a-text>
+        </a-circle>
+      </a-plane>
     </a-entity>
-  </a-entity>
-);
+  );
+};
 
 export default HotspotOverlay;

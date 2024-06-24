@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'aframe';
 import 'aframe-event-set-component';
-import 'aframe-look-at-component';
 import './VRTour.css';
 import Navigation from './Navigation';
 import RoomOverlay from './RoomOverlay';
@@ -114,7 +113,7 @@ function VRTour() {
           <img id="closeIcon" src={closeIcon} alt="Close Icon" />
         </a-assets>
         <a-camera id="camera">
-          <a-cursor color="transparent" rayOrigin="mouse"></a-cursor>
+          <a-cursor color="white"></a-cursor>
         </a-camera>
         {selectedRoom && (
           <a-sky src={selectedRoom.imageUrl}></a-sky>
@@ -134,4 +133,3 @@ function VRTour() {
 }
 
 export default VRTour;
-
