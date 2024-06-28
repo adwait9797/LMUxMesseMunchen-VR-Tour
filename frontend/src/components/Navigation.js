@@ -3,6 +3,7 @@ import './Navigation.css';
 import infoIcon from './assets/info_icon.svg';
 import mapIcon from './assets/map_icon.svg';
 import shareIcon from './assets/share_icon.svg';
+import myLocationIcon from './assets/mylocation_icon.svg'; // New icon import
 
 const Navigation = ({ currentRoom, onNavigationClick, onInfoClick }) => {
   return (
@@ -17,6 +18,9 @@ const Navigation = ({ currentRoom, onNavigationClick, onInfoClick }) => {
           <span>Navigation</span>
         </div>
         <div className="icon-container">
+          <img src={myLocationIcon} alt="My Location" className="icon" /> {/* New icon container */}
+        </div>
+        <div className="icon-container">
           <img src={shareIcon} alt="Share" className="icon" />
         </div>
       </div>
@@ -25,4 +29,3 @@ const Navigation = ({ currentRoom, onNavigationClick, onInfoClick }) => {
 };
 
 export default Navigation;
-

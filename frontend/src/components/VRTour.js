@@ -7,7 +7,7 @@ import Navigation from './Navigation';
 import RoomOverlay from './RoomOverlay';
 import InfoOverlay from './InfoOverlay';
 import Hotspot from './Hotspot';
-import HotspotOverlay from './HotspotOverlay'; 
+import HotspotOverlay from './HotspotOverlay';
 import closeIcon from './assets/close_icon.svg';
 
 function VRTour() {
