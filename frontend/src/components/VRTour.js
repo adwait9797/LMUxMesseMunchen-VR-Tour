@@ -8,6 +8,7 @@ import RoomOverlay from './RoomOverlay';
 import InfoOverlay from './InfoOverlay';
 import Hotspot from './Hotspot';
 import HotspotOverlay from './HotspotOverlay';
+import MapPopup from './MapPopup'; // Correct import for MapPopup
 import closeIcon from './assets/close_icon.svg';
 
 function VRTour() {
@@ -18,6 +19,7 @@ function VRTour() {
   const [isInfoOverlayOpen, setIsInfoOverlayOpen] = useState(false);
   const [currentHotspot, setCurrentHotspot] = useState(null);
   const [currentRoomInfo, setCurrentRoomInfo] = useState(null);
+  const [isMapPopupOpen, setIsMapPopupOpen] = useState(false); // State for map popup
 
   useEffect(() => {
     const fetchTourData = async () => {
@@ -83,6 +85,14 @@ function VRTour() {
     setIsInfoOverlayOpen(false);
   };
 
+  const handleMapClick = () => {
+    setIsMapPopupOpen(true); // Open the map popup
+  };
+
+  const handleMapPopupClose = () => {
+    setIsMapPopupOpen(false); // Close the map popup
+  };
+
   if (!tourData) {
     return <div>Loading...</div>;
   }
@@ -93,6 +103,7 @@ function VRTour() {
         currentRoom={selectedRoom ? selectedRoom.title : 'Loading...'}
         onNavigationClick={handleOverlayOpen}
         onInfoClick={handleInfoClick}
+        onMapClick={handleMapClick} // Pass the map click handler
       />
       {isOverlayOpen && (
         <RoomOverlay
@@ -104,6 +115,12 @@ function VRTour() {
       )}
       {isInfoOverlayOpen && currentRoomInfo && (
         <InfoOverlay roomInfo={currentRoomInfo} onClose={handleInfoOverlayClose} />
+      )}
+      {isMapPopupOpen && (
+        <MapPopup
+          imageUrl="/assets/maps/MainHall_Map.JPG" // Path to the map image
+          onClose={handleMapPopupClose}
+        />
       )}
       <a-scene embedded>
         <a-assets>
