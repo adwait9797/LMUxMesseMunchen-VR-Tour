@@ -10,17 +10,17 @@ const Navigation = ({ currentRoom, onNavigationClick, onInfoClick }) => {
     <div className="navigation">
       <h2>{currentRoom}</h2>
       <div className="icons">
-        <div className="icon-container" onClick={onInfoClick}>
+        <div className="icon-container" title="Learn about the room" onClick={onInfoClick}>
           <img src={infoIcon} alt="Info" className="icon" />
         </div>
-        <div className="icon-container navigation-button" onClick={onNavigationClick}>
+        <div className="icon-container navigation-button" title="Choose from a selection of rooms" onClick={onNavigationClick}>
           <img src={mapIcon} alt="Navigation" className="icon" />
           <span>Navigation</span>
         </div>
-        <div className="icon-container">
-          <img src={myLocationIcon} alt="My Location" className="icon" /> {/* New icon container */}
+        <div className="icon-container" title="Learn where you are">
+          <img src={myLocationIcon} alt="My Location" className="icon" />
         </div>
-        <div className="icon-container">
+        <div className="icon-container" title="Share this room">
           <img src={shareIcon} alt="Share" className="icon" />
         </div>
       </div>
