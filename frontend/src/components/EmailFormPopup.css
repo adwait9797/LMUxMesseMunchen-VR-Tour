@@ -15,16 +15,17 @@
     background: white;
     padding: 20px;
     border-radius: 10px;
-    text-align: center;
+    text-align: left; /* Ensure the text is left-aligned */
   }
   
   .form-group {
     margin-bottom: 15px;
   }
   
-  .form-group label {
-    display: block;
+  .form-group p {
     margin-bottom: 5px;
+    font-weight: bold; /* Make the label bold to ensure visibility */
+    color: #333; /* Set font color to ensure visibility */
   }
   
   .form-group input,
