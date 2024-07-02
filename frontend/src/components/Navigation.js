@@ -5,7 +5,7 @@ import mapIcon from './assets/map_icon.svg';
 import shareIcon from './assets/share_icon.svg';
 import myLocationIcon from './assets/mylocation_icon.svg'; // New icon import
 
-const Navigation = ({ currentRoom, onNavigationClick, onInfoClick, onMapClick }) => { // Add onMapClick here
+const Navigation = ({ currentRoom, onNavigationClick, onInfoClick, onMapClick, onShareClick }) => { // Add onShareClick here
   return (
     <div className="navigation">
       <h2>{currentRoom}</h2>
@@ -20,7 +20,7 @@ const Navigation = ({ currentRoom, onNavigationClick, onInfoClick, onMapClick })
         <div className="icon-container" title="Learn where you are" onClick={onMapClick}> {/* Add onClick handler */}
           <img src={myLocationIcon} alt="My Location" className="icon" />
         </div>
-        <div className="icon-container" title="Share this room">
+        <div className="icon-container" title="Share this room" onClick={onShareClick}> {/* Add onClick handler */}
           <img src={shareIcon} alt="Share" className="icon" />
         </div>
       </div>

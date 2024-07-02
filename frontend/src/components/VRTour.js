@@ -8,7 +8,8 @@ import RoomOverlay from './RoomOverlay';
 import InfoOverlay from './InfoOverlay';
 import Hotspot from './Hotspot';
 import HotspotOverlay from './HotspotOverlay';
-import MapPopup from './MapPopup'; // Correct import for MapPopup
+import MapPopup from './MapPopup';
+import EmailFormPopup from './EmailFormPopup'; // Import the EmailFormPopup component
 import closeIcon from './assets/close_icon.svg';
 
 function VRTour() {
@@ -17,9 +18,10 @@ function VRTour() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [isHotspotOverlayOpen, setIsHotspotOverlayOpen] = useState(false);
   const [isInfoOverlayOpen, setIsInfoOverlayOpen] = useState(false);
+  const [isMapPopupOpen, setIsMapPopupOpen] = useState(false);
+  const [isEmailFormPopupOpen, setIsEmailFormPopupOpen] = useState(false); // State for email form popup
   const [currentHotspot, setCurrentHotspot] = useState(null);
   const [currentRoomInfo, setCurrentRoomInfo] = useState(null);
-  const [isMapPopupOpen, setIsMapPopupOpen] = useState(false); // State for map popup
 
   useEffect(() => {
     const fetchTourData = async () => {
@@ -93,6 +95,21 @@ function VRTour() {
     setIsMapPopupOpen(false); // Close the map popup
   };
 
+  const handleShareClick = () => {
+    setIsEmailFormPopupOpen(true); // Open the email form popup
+  };
+
+  const handleEmailFormPopupClose = () => {
+    setIsEmailFormPopupOpen(false); // Close the email form popup
+  };
+
+  const handleEmailFormSubmit = (email, message) => {
+    console.log('Send email to:', email);
+    console.log('Message:', message);
+    // Add your email sending logic here
+    handleEmailFormPopupClose(); // Close the form after submission
+  };
+
   if (!tourData) {
     return <div>Loading...</div>;
   }
@@ -104,6 +121,7 @@ function VRTour() {
         onNavigationClick={handleOverlayOpen}
         onInfoClick={handleInfoClick}
         onMapClick={handleMapClick} // Pass the map click handler
+        onShareClick={handleShareClick} // Pass the share click handler
       />
       {isOverlayOpen && (
         <RoomOverlay
@@ -120,6 +138,12 @@ function VRTour() {
         <MapPopup
           imageUrl="/assets/maps/MainHall_Map.JPG" // Path to the map image
           onClose={handleMapPopupClose}
+        />
+      )}
+      {isEmailFormPopupOpen && (
+        <EmailFormPopup
+          onClose={handleEmailFormPopupClose}
+          onSubmit={handleEmailFormSubmit}
         />
       )}
       <a-scene embedded>
