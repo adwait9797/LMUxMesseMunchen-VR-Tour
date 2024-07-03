@@ -3,23 +3,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px 40px; /* Less padding for height and more for width */
-  background-color: rgba(255, 255, 255, 0.6); /* Increased transparency */
-  backdrop-filter: blur(10px); /* Blurred background */
+  padding: 10px 40px;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
   border-radius: 0 0 30px 30px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 500px; /* Decreased width */
-  z-index: 1000; /* Make sure it's on top */
+  width: 500px;
+  z-index: 1000;
 }
 
 .navigation h2 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
-  font-size: 2rem; /* Smaller font size */
+  font-size: 2rem;
   margin: 0 0 10px 0;
   color: white;
 }
@@ -34,8 +34,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%; /* Circle shape */
-  background-color: rgba(0, 0, 0, 0.25); /* Black with 25% transparency */
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.25);
   padding: 15px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
@@ -51,8 +51,8 @@
 }
 
 .icon {
-  width: 24px; /* Adjust size as needed */
-  height: 24px; /* Adjust size as needed */
+  width: 24px;
+  height: 24px;
 }
 
 .navigation-button {
@@ -60,10 +60,10 @@
   align-items: center;
   justify-content: center;
   padding: 10px 20px;
-  background-color: rgba(0, 0, 0, 0.25); /* Same as the icon containers */
+  background-color: rgba(0, 0, 0, 0.25);
   color: white;
   border: none;
-  border-radius: 50px; /* More rounded corners for the button */
+  border-radius: 50px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
@@ -81,6 +81,6 @@
 
 .navigation-button .icon {
   margin-right: 10px;
-  width: 24px; /* Ensure the icon is the same size as others */
+  width: 24px;
   height: 24px;
 }

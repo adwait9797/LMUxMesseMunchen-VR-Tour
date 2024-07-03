@@ -1,0 +1,61 @@
+.email-form-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000; /* Ensure it's above other elements */
+  }
+  
+  .email-form-popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left; /* Ensure the text is left-aligned */
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group p {
+    margin-bottom: 5px;
+    font-weight: bold; /* Make the label bold to ensure visibility */
+    color: #333; /* Set font color to ensure visibility */
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .form-actions button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .form-actions button:hover {
+    background-color: #555;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  

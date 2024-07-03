@@ -7,7 +7,9 @@ import Navigation from './Navigation';
 import RoomOverlay from './RoomOverlay';
 import InfoOverlay from './InfoOverlay';
 import Hotspot from './Hotspot';
-import HotspotOverlay from './HotspotOverlay'; 
+import HotspotOverlay from './HotspotOverlay';
+import MapPopup from './MapPopup';
+import EmailFormPopup from './EmailFormPopup'; // Import the EmailFormPopup component
 import closeIcon from './assets/close_icon.svg';
 
 function VRTour() {
@@ -16,6 +18,8 @@ function VRTour() {
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [isHotspotOverlayOpen, setIsHotspotOverlayOpen] = useState(false);
   const [isInfoOverlayOpen, setIsInfoOverlayOpen] = useState(false);
+  const [isMapPopupOpen, setIsMapPopupOpen] = useState(false);
+  const [isEmailFormPopupOpen, setIsEmailFormPopupOpen] = useState(false); // State for email form popup
   const [currentHotspot, setCurrentHotspot] = useState(null);
   const [currentRoomInfo, setCurrentRoomInfo] = useState(null);
 
@@ -83,6 +87,29 @@ function VRTour() {
     setIsInfoOverlayOpen(false);
   };
 
+  const handleMapClick = () => {
+    setIsMapPopupOpen(true); // Open the map popup
+  };
+
+  const handleMapPopupClose = () => {
+    setIsMapPopupOpen(false); // Close the map popup
+  };
+
+  const handleShareClick = () => {
+    setIsEmailFormPopupOpen(true); // Open the email form popup
+  };
+
+  const handleEmailFormPopupClose = () => {
+    setIsEmailFormPopupOpen(false); // Close the email form popup
+  };
+
+  const handleEmailFormSubmit = (email, message) => {
+    console.log('Send email to:', email);
+    console.log('Message:', message);
+    // Add your email sending logic here
+    handleEmailFormPopupClose(); // Close the form after submission
+  };
+  
   const handleArrowClick = (arrowHotspot) => {
     const targetRoom = tourData.parts.find(part => part.title === arrowHotspot.targetRoom);
     if (targetRoom) {
@@ -100,6 +127,8 @@ function VRTour() {
         currentRoom={selectedRoom ? selectedRoom.title : 'Loading...'}
         onNavigationClick={handleOverlayOpen}
         onInfoClick={handleInfoClick}
+        onMapClick={handleMapClick} // Pass the map click handler
+        onShareClick={handleShareClick} // Pass the share click handler
       />
       {isOverlayOpen && (
         <RoomOverlay
@@ -111,6 +140,18 @@ function VRTour() {
       )}
       {isInfoOverlayOpen && currentRoomInfo && (
         <InfoOverlay roomInfo={currentRoomInfo} onClose={handleInfoOverlayClose} />
+      )}
+      {isMapPopupOpen && (
+        <MapPopup
+          imageUrl="/assets/maps/MainHall_Map.JPG" // Path to the map image
+          onClose={handleMapPopupClose}
+        />
+      )}
+      {isEmailFormPopupOpen && (
+        <EmailFormPopup
+          onClose={handleEmailFormPopupClose}
+          onSubmit={handleEmailFormSubmit}
+        />
       )}
       <a-scene embedded>
         <a-assets>
@@ -128,7 +169,7 @@ function VRTour() {
         {selectedRoom.hotspots && selectedRoom.hotspots.map((hotspot, index) => (
           <Hotspot key={index} hotspot={hotspot} handleHotspotClick={handleHotspotClick} />
         ))}
-         {selectedRoom.arrowHotspots && selectedRoom.arrowHotspots.map((arrowHotspot, index) => (
+        {selectedRoom.arrowHotspots && selectedRoom.arrowHotspots.map((arrowHotspot, index) => (
           <Hotspot key={`arrow-${index}`} hotspot={arrowHotspot} handleArrowClick={handleArrowClick} />
         ))}
         {isHotspotOverlayOpen && currentHotspot && (
@@ -143,3 +184,4 @@ function VRTour() {
 }
 
 export default VRTour;
+

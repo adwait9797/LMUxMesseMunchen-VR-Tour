@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import './GuidedTour.css';
@@ -7,18 +7,10 @@ import { ReactComponent as HeadphonesIcon } from './assets/headphones.svg';
 import { ReactComponent as VRHeadsetIcon } from './assets/head_mounted_device_icon.svg';
 
 const GuidedTour = () => {
-    const [selectedOption, setSelectedOption] = useState(null);
     const navigate = useNavigate();
 
-    const handleOptionClick = (option) => {
-        setSelectedOption(option);
-    };
-
     const handleStartTour = () => {
-        // This function will navigate to CombinedRooms if the selected option matches
-        if (selectedOption === 'CombinedRooms') {
-            navigate('/combined-rooms');
-        }
+        navigate('/combined-rooms');
     };
 
     return (
@@ -37,7 +29,8 @@ const GuidedTour = () => {
                         <p><VRHeadsetIcon className="vr-icon" /> To view the virtual reality version of this story, visit this page using your Oculus Rift.</p>
                     </div>
                 
-                    <button onClick={() => handleStartTour('CombinedRooms')} className="start-button">Start Guided Tour</button>
+                    <button onClick={handleStartTour} className="start-button">Start Guided Tour</button>
+                    
                 </div>
             </div>
         </div>
