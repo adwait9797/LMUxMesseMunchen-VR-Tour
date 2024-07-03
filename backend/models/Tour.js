@@ -28,3 +28,6 @@ const tourSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Tour', tourSchema);
+
+
+
