@@ -26,6 +26,10 @@ db.once('open', async () => {
           { title: 'Main Hall Info 1', position: '7 1 -3', description: 'This is the first hotspot in the Main Hall.' },
           { title: 'Main Hall Info 2', position: '-1 2 -4', description: 'This is the second hotspot in the Main Hall.' },
         ],
+        arrowHotspots: [
+          { title: 'To Auditorium', position: '3 0 -5', targetRoom: 'Auditorium' },
+          { title: 'To Entrance West', position: '9 -2 2', targetRoom: 'Entrance West' },
+        ],
       },
       { 
         title: 'Auditorium', 
@@ -34,6 +38,9 @@ db.once('open', async () => {
         hotspots: [
           { title: 'Auditorium Info 1', position: '0 1.5 -2', description: 'This is the first hotspot in the Auditorium.' },
           { title: 'Auditorium Info 2', position: '1 -1 -3', description: 'This is the second hotspot in the Auditorium.' },
+        ],
+        arrowHotspots: [
+          { title: 'To Auditorium', position: '3 0 -5', targetRoom: 'Auditorium' },
         ],
       },
       { 
@@ -44,6 +51,9 @@ db.once('open', async () => {
           { title: 'Entrance West Info 1', position: '1 0.5 -2.5', description: 'This is the first hotspot at the Entrance West.' },
           { title: 'Entrance West Info 2', position: '-0.5 1 -2', description: 'This is the second hotspot at the Entrance West.' },
         ],
+        arrowHotspots: [
+          { title: 'To Auditorium', position: '3 0 -5', targetRoom: 'Auditorium' },
+        ],
       },
       { 
         title: 'First Entrance', 
@@ -52,6 +62,9 @@ db.once('open', async () => {
         hotspots: [
           { title: 'First Entrance Info 1', position: '1 1 -3', description: 'This is the first hotspot at the First Entrance.' },
           { title: 'First Entrance Info 2', position: '-1 1.5 -3.5', description: 'This is the second hotspot at the First Entrance.' },
+        ],
+        arrowHotspots: [
+          { title: 'To Auditorium', position: '3 0 -5', targetRoom: 'Auditorium' },
         ],
       },
       { 
@@ -62,6 +75,9 @@ db.once('open', async () => {
           { title: 'Hall 1 Info 1', position: '1 0.5 -2.5', description: 'This is the first hotspot in Hall 1.' },
           { title: 'Hall 1 Info 2', position: '-0.5 1 -2', description: 'This is the second hotspot in Hall 1.' },
         ],
+        arrowHotspots: [
+          { title: 'To Auditorium', position: '3 0 -5', targetRoom: 'Auditorium' },
+        ],
       },
       { 
         title: 'Hall 2', 
@@ -71,6 +87,9 @@ db.once('open', async () => {
           { title: 'Hall 2 Info 1', position: '1 1 -3', description: 'This is the first hotspot in Hall 2.' },
           { title: 'Hall 2 Info 2', position: '-1 2 -4', description: 'This is the second hotspot in Hall 2.' },
         ],
+        arrowHotspots: [
+          { title: 'To Auditorium', position: '3 0 -5', targetRoom: 'Auditorium' },
+        ],
       },
       { 
         title: 'B0', 
@@ -79,6 +98,9 @@ db.once('open', async () => {
         hotspots: [
           { title: 'B0 Info 1', position: '1 1 -3', description: 'This is the first hotspot in B0.' },
           { title: 'B0 Info 2', position: '-1 2 -4', description: 'This is the second hotspot in B0.' },
+        ],
+        arrowHotspots: [
+          { title: 'To Auditorium', position: '3 0 -5', targetRoom: 'Auditorium' },
         ],
       },
     ],

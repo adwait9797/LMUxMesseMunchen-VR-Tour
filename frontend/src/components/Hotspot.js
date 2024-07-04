@@ -3,13 +3,14 @@ import 'aframe';
 import 'aframe-look-at-component';
 import './Hotspot.css';
 import infoIcon from './assets/Info_Icon_Hotspots.png';
+import arrowIcon from './assets/Arrow_hotspot.png'; 
 
-const Hotspot = ({ hotspot, handleHotspotClick }) => (
+const Hotspot = ({ hotspot, handleHotspotClick, handleArrowClick }) => (
   <a-entity
     position={hotspot.position}
     class="clickable"
     look-at="#camera"
-    onClick={() => handleHotspotClick(hotspot)}
+    onClick={() => hotspot.targetRoom ? handleArrowClick(hotspot) : handleHotspotClick(hotspot)}
     event-set__mouseenter="scale: 1.2 1.2 1.2"
     event-set__mouseleave="scale: 1 1 1"
   >
@@ -22,7 +23,7 @@ const Hotspot = ({ hotspot, handleHotspotClick }) => (
     <a-plane
       height="0.8"
       width="0.8"
-      material={`src: url(${infoIcon}); transparent: true; opacity: 1`}
+      material={`src: url(${hotspot.targetRoom ? arrowIcon : infoIcon}); transparent: true; opacity: 1`}
     ></a-plane>
     <a-animation
       attribute="scale"

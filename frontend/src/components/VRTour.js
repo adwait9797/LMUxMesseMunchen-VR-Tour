@@ -109,6 +109,13 @@ function VRTour() {
     // Add your email sending logic here
     handleEmailFormPopupClose(); // Close the form after submission
   };
+  
+  const handleArrowClick = (arrowHotspot) => {
+    const targetRoom = tourData.parts.find(part => part.title === arrowHotspot.targetRoom);
+    if (targetRoom) {
+      setSelectedRoom(targetRoom);
+    }
+  };
 
   if (!tourData) {
     return <div>Loading...</div>;
@@ -162,6 +169,9 @@ function VRTour() {
         {selectedRoom.hotspots && selectedRoom.hotspots.map((hotspot, index) => (
           <Hotspot key={index} hotspot={hotspot} handleHotspotClick={handleHotspotClick} />
         ))}
+        {selectedRoom.arrowHotspots && selectedRoom.arrowHotspots.map((arrowHotspot, index) => (
+          <Hotspot key={`arrow-${index}`} hotspot={arrowHotspot} handleArrowClick={handleArrowClick} />
+        ))}
         {isHotspotOverlayOpen && currentHotspot && (
           <HotspotOverlay hotspot={currentHotspot} onClose={handleHotspotOverlayClose} />
         )}
@@ -174,3 +184,4 @@ function VRTour() {
 }
 
 export default VRTour;
+
