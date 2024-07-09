@@ -40,12 +40,15 @@ const Home = () => {
         <div className="main-text">
           Experience <span className="highlight">Messe München</span>
           <small>Now in VR</small>
-          <p className="random-fact">{randomFact}</p>
+          <p className="random-fact">{randomFact}</p> {/* Moved fact inside main-text */}
           <div className="resources">
-            <small>Resources: <Link to="/contact-us">Contact Us</Link> | <Link to="/help-center">Help Center</Link></small>
+            <small>
+              Resources: <Link to="/contact-us">Contact Us</Link> | <Link to="/help-center">Help Center</Link>
+            </small>
           </div>
         </div>
       </div>
+   
       <div className="card">
         <h2>Select your tour method:</h2>
         <div
