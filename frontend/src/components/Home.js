@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Home.css';
 import logo from './assets/logo.png';
 import imageIcon from './assets/image_icon.svg';
@@ -40,9 +40,9 @@ const Home = () => {
         <div className="main-text">
           Experience <span className="highlight">Messe München</span>
           <small>Now in VR</small>
-          <p className="random-fact">{randomFact}</p> {/* Moved fact inside main-text */}
+          <p className="random-fact">{randomFact}</p>
           <div className="resources">
-            <small>Resources: <a href="/contact-us">Contact Us</a> | <a href="/help-center">Help Center</a></small>
+            <small>Resources: <Link to="/contact-us">Contact Us</Link> | <Link to="/help-center">Help Center</Link></small>
           </div>
         </div>
       </div>
