@@ -65,6 +65,24 @@ body, html {
   text-align: left;
 }
 
+.resources {
+  margin-top: 50px; /* Add margin to create more white space */
+  text-align: left; /* Ensure the text is left-aligned */
+}
+
+.resources small {
+  font-size: 0.9rem; /* Smaller font size for the resources text */
+}
+
+.resources a {
+  color: #5090CD;
+  text-decoration: none;
+}
+
+.resources a:hover {
+  text-decoration: underline;
+}
+
 .card {
   width: 400px;
   padding: 20px;

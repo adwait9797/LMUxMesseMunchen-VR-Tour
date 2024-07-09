@@ -41,6 +41,9 @@ const Home = () => {
           Experience <span className="highlight">Messe München</span>
           <small>Now in VR</small>
           <p className="random-fact">{randomFact}</p> {/* Moved fact inside main-text */}
+          <div className="resources">
+            <small>Resources: <a href="/contact-us">Contact Us</a> | <a href="/help-center">Help Center</a></small>
+          </div>
         </div>
       </div>
       <div className="card">
