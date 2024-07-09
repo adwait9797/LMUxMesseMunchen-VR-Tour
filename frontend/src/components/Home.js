@@ -40,11 +40,14 @@ const Home = () => {
         <div className="main-text">
           Experience <span className="highlight">Messe München</span>
           <small>Now in VR</small>
+          <p className="random-fact">{randomFact}</p> {/* Moved fact inside main-text */}
+          <div className="resources">
+            <small>Resources: <a href="/contact-us">Contact Us</a> | <a href="/help-center">Help Center</a></small>
+          </div>
         </div>
-        <p className="random-fact">{randomFact}</p> {/* Added fact display */}
       </div>
       <div className="card">
-        <h2>Choose tour method</h2>
+        <h2>Select your tour method:</h2>
         <div
           className={`option ${selectedOption === 'self' ? 'selected' : ''}`}
           onClick={() => handleOptionClick('self')}
@@ -53,6 +56,7 @@ const Home = () => {
           <div className="option-text">
             <div className="option-title">Self Guided Tour</div>
             <div className="option-subtitle">Explore at your own pace</div>
+            <div className="option-subtitle">Suggested for <b>Employees</b></div>
           </div>
         </div>
         <div
@@ -63,6 +67,7 @@ const Home = () => {
           <div className="option-text">
             <div className="option-title">Guided Tour</div>
             <div className="option-subtitle">Join a guided session</div>
+            <div className="option-subtitle">Suggested for <b>Exhibitors</b></div>
           </div>
         </div>
         <button className="start-button" onClick={handleStartTour}>
