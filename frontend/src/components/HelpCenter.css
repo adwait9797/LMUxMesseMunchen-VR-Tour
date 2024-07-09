@@ -1,0 +1,100 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fff; /* Ensure plain white background */
+  }
+  
+  .help-center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    min-height: 100vh;
+  }
+  
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    width: 150px;
+  }
+  
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff; /* Ensure no gray background */
+  }
+  
+  .main-header {
+    color: #2e2e2e;
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .vr-instructions {
+    margin-top: 40px;
+    text-align: left; /* Align text to the left */
+  }
+  
+  .vr-instructions h2 {
+    color: #2e2e2e;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  .vr-instructions ol {
+    color: #2e2e2e;
+    font-size: 1.2rem; /* Ensure all body copy is the same size */
+    margin-left: 20px;
+  }
+  
+  .help-text-container {
+    margin-top: 40px;
+    text-align: center;
+  }
+  
+  .help-text {
+    color: #2e2e2e;
+    font-size: 1.2rem; /* Ensure all body copy is the same size */
+    margin-bottom: 20px;
+  }
+  
+  .button-container {
+    display: flex;
+    gap: 20px; /* Add space between the buttons */
+    justify-content: center;
+  }
+  
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    padding: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #5090CD;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  .button:hover {
+    background-color: #407bbd;
+  }
+  
