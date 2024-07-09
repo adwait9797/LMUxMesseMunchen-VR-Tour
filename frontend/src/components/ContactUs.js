@@ -66,9 +66,9 @@ const ContactUs = () => {
               required
             />
           </div>
-          <button type="submit" className="submit-button">Submit</button>
+          <button type="submit" className="button">Submit</button>
         </form>
-        <Link to="/" className="home-button">Go to Home</Link>
+        <Link to="/" className="button">Home</Link>
       </div>
     </div>
   );
