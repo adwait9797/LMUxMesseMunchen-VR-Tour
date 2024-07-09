@@ -58,6 +58,13 @@ body, html {
   margin-top: 10px;
 }
 
+.random-fact {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #555;
+  text-align: left;
+}
+
 .card {
   width: 400px;
   padding: 20px;

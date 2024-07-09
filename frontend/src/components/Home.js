@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import logo from './assets/logo.png';
@@ -7,7 +7,19 @@ import videoIcon from './assets/video_icon.svg';
 
 const Home = () => {
   const [selectedOption, setSelectedOption] = useState(null);
+  const [randomFact, setRandomFact] = useState('');
   const navigate = useNavigate();
+
+  const facts = [
+    "Did you know? In 2006, Trade Fair Center Messe München was transformed into the media center of the FIFA World Cup and hosted the church service during the Pope's visit.",
+    "Did you know? With 200,000 square meters of exhibition space, the Trade Fair Center is the perfect location for trade fairs.",
+    "Did you know? Messe München hosts XXL product presentations and events with plenums of up to 6,000 people."
+  ];
+
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * facts.length);
+    setRandomFact(facts[randomIndex]);
+  }, []);
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -29,6 +41,7 @@ const Home = () => {
           Experience <span className="highlight">Messe München</span>
           <small>Now in VR</small>
         </div>
+        <p className="random-fact">{randomFact}</p> {/* Added fact display */}
       </div>
       <div className="card">
         <h2>Choose tour method</h2>
