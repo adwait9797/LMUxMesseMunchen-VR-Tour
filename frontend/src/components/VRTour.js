@@ -53,6 +53,40 @@ function VRTour() {
       skyElement = document.createElement('a-sky');
       skyElement.setAttribute('src', selectedRoom.imageUrl);
       scene.appendChild(skyElement);
+  
+      // Updated event listeners
+      const hotspots = document.querySelectorAll('.hotspot-wrapper');
+      hotspots.forEach(hotspot => {
+        const overlay = hotspot.querySelector('.arrow-hotspot-overlay');
+        if (overlay) {
+          let hideTimeout;
+  
+          const showOverlay = () => {
+            clearTimeout(hideTimeout);
+            overlay.setAttribute('visible', 'true');
+            overlay.emit('showoverlay');
+          };
+  
+          const hideOverlay = () => {
+            hideTimeout = setTimeout(() => {
+              overlay.emit('hideoverlay');
+              setTimeout(() => {
+                overlay.setAttribute('visible', 'false');
+              }, 200);
+            }, 300); // Delay before starting to hide
+          };
+  
+          hotspot.addEventListener('mouseenter', showOverlay);
+          hotspot.addEventListener('mouseleave', hideOverlay);
+  
+          // Clean up
+          return () => {
+            hotspot.removeEventListener('mouseenter', showOverlay);
+            hotspot.removeEventListener('mouseleave', hideOverlay);
+            clearTimeout(hideTimeout);
+          };
+        }
+      });
     }
   }, [selectedRoom]);
 
@@ -170,7 +204,7 @@ function VRTour() {
           <Hotspot key={index} hotspot={hotspot} handleHotspotClick={handleHotspotClick} />
         ))}
         {selectedRoom.arrowHotspots && selectedRoom.arrowHotspots.map((arrowHotspot, index) => (
-          <Hotspot key={`arrow-${index}`} hotspot={arrowHotspot} handleArrowClick={handleArrowClick} />
+          <Hotspot key={`arrow-${index}`} hotspot={arrowHotspot} handleArrowClick={handleArrowClick} handleHotspotClick={handleHotspotClick}/>
         ))}
         {isHotspotOverlayOpen && currentHotspot && (
           <HotspotOverlay hotspot={currentHotspot} onClose={handleHotspotOverlayClose} />
