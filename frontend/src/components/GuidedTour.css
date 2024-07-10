@@ -22,7 +22,7 @@
 }
 
 /* Content Container - Left-aligned and readable */
-.content-container {
+.guided-content-container {
   position: relative;
   width: 100%;
   max-width: 800px;
@@ -35,8 +35,8 @@
 }
 
 /* Logo and Text Content */
-.logo-container {
-  margin-bottom: 160px;  /* Space below the logo */
+.guided-logo-container {
+  margin-bottom: 30px;  /* Space below the logo */
 }
 
 .logo {
@@ -67,4 +67,3 @@
 button:hover {
   background-color: #444;
 }
-

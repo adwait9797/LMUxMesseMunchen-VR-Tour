@@ -15,8 +15,8 @@ const GuidedTour = () => {
 
     return (
         <div className="background-image">
-            <div className="content-container">
-                <div className="logo-container">
+            <div className="guided-content-container">
+                <div className="guided-logo-container">
                     <img src={logo} alt="Messe Muenchen Logo" className="logo" />
                 </div>
                 <div className="text-content">
