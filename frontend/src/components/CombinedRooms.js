@@ -7,59 +7,61 @@ import { ReactComponent as PauseIcon } from './assets/pause.svg';
 
 const CombinedRooms = () => {
   const [currentSceneIndex, setCurrentSceneIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const audioRef = useRef(null);
 
   const scenes = [
-    { id: 'lobby', url: '/assets/first_entrance.jpg' },
-    { id: 'lounge', url: '/assets/entrance_west.jpg' },
-    { id: 'main_hall', url: '/assets/main_hall.jpg' },
-    { id: 'hall1', url: '/assets/hall1.jpg' },
-    { id: 'hall2', url: '/assets/hall2.jpg' },
-    { id: 'B0', url: '/assets/B0.jpg' }, 
+    { id: 'lobby', url: '/assets/main_hall.jpg', duration: 1000000 }, // 10 seconds
+    { id: 'lounge', url: '/assets/entrance_west.jpg', duration: 20000 }, // 20 seconds
+    { id: 'main_hall', url: '/assets/main_hall.jpg', duration: 15000 }, // 15 seconds
+    { id: 'hall1', url: '/assets/hall1.jpg', duration: 25000 }, // 25 seconds
+    { id: 'hall2', url: '/assets/hall2.jpg', duration: 30000 }, // 30 seconds
+    { id: 'B0', url: '/assets/B0.jpg', duration: 200000000 }, // 20 seconds
   ];
 
-  const intervalRef = useRef(null);
+  const timeoutRef = useRef(null);
+  const progressIntervalRef = useRef(null);
 
   useEffect(() => {
-    function handleSceneChange() {
+    function changeScene() {
+      console.log(`Changing scene from index ${currentSceneIndex} to ${(currentSceneIndex + 1) % scenes.length}`);
       setCurrentSceneIndex(prevIndex => (prevIndex + 1) % scenes.length);
     }
 
-    if (isPlaying) {
-      intervalRef.current = setInterval(handleSceneChange, 30000); // Change scene every 30 seconds
-      setProgress(0);
-    } else {
-      clearInterval(intervalRef.current);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
     }
 
-    return () => clearInterval(intervalRef.current);
-  }, [isPlaying, scenes.length]);
+    timeoutRef.current = setTimeout(() => {
+      changeScene();
+    }, scenes[currentSceneIndex].duration);
+
+    return () => clearTimeout(timeoutRef.current);
+  }, [currentSceneIndex]);
 
   useEffect(() => {
-    let progressInterval;
-    if (isPlaying) {
-      progressInterval = setInterval(() => {
-        setProgress(prev => (prev + 100 / (30000 / 100)) % 100);
-      }, 100);
-    } else {
-      clearInterval(progressInterval);
-      setProgress(0);
+    if (progressIntervalRef.current) {
+      clearInterval(progressIntervalRef.current);
     }
-    return () => clearInterval(progressInterval);
-  }, [isPlaying]);
 
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
-    if (!isPlaying && audioRef.current) {
-      audioRef.current.play().catch(err => console.error('Error playing audio:', err));
-    } else if (audioRef.current) {
-      audioRef.current.pause();
+    setProgress(0);
+
+    progressIntervalRef.current = setInterval(() => {
+      setProgress(prev => Math.min(prev + (100 / (scenes[currentSceneIndex].duration / 1000)), 100));
+    }, 1000);
+
+    return () => clearInterval(progressIntervalRef.current);
+  }, [currentSceneIndex]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.play().catch(err => {
+        console.error('Error playing audio:', err);
+      });
     }
-  };
+  }, []);
 
-  const progressPercentage = ((currentSceneIndex + 1) / scenes.length) * 100;
+  const progressPercentage = Math.min(progress, 100);
 
   return (
     <div className="scene-container">
@@ -77,9 +79,6 @@ const CombinedRooms = () => {
 
       <div className="controls-container">
         <div className="left-controls">
-          <button className="play-pause-button" onClick={togglePlayPause} title={isPlaying ? 'Pause Tour' : 'Play Tour'}>
-            {isPlaying ? <PauseIcon /> : <PlayIcon />}
-          </button>
           <div className="progress-bar">
             <div className="progress" style={{ width: `${progressPercentage}%` }}></div>
           </div>

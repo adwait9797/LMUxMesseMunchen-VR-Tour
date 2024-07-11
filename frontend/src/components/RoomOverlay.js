@@ -45,12 +45,7 @@ const RoomOverlay = ({ currentRoom, rooms, onRoomSelect, onClose }) => {
             className={`toggle-icon ${view === 'list' ? 'active' : ''}`}
             onClick={() => handleToggleView('list')}
           />
-          <img
-            src={mapIcon}
-            alt="Map View"
-            className={`toggle-icon ${view === 'map' ? 'active' : ''}`}
-            onClick={() => handleToggleView('map')}
-          />
+       
         </div>
         <div className="current-room">
           <img src={locationIcon} alt="Current Room" className="location-icon" />
