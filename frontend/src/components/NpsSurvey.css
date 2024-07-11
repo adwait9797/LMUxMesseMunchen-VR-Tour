@@ -1,0 +1,19 @@
+.nps-survey {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .nps-rating {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .nps-rating label {
+    margin: 0 5px;
+  }
+  
+  .error {
+    color: red;
+  }
+  
