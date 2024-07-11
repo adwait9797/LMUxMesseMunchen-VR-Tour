@@ -187,7 +187,7 @@ function VRTour() {
           onSubmit={handleEmailFormSubmit}
         />
       )}
-      <a-scene embedded>
+      <a-scene embedded cursor="rayOrigin: mouse">
         <a-assets>
           {tourData.parts.map((part, index) => (
             <img key={index} id={`roomImage-${part._id}`} src={part.imageUrl} alt={part.title} />
@@ -195,7 +195,6 @@ function VRTour() {
           <img id="closeIcon" src={closeIcon} alt="Close Icon" />
         </a-assets>
         <a-camera id="camera">
-          <a-cursor color="white"></a-cursor>
         </a-camera>
         {selectedRoom && (
           <a-sky src={selectedRoom.imageUrl}></a-sky>
