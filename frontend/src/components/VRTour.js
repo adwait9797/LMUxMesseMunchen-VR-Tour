@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 import 'aframe';
 import 'aframe-event-set-component';
 import './VRTour.css';
@@ -22,6 +23,7 @@ function VRTour() {
   const [isEmailFormPopupOpen, setIsEmailFormPopupOpen] = useState(false); // State for email form popup
   const [currentHotspot, setCurrentHotspot] = useState(null);
   const [currentRoomInfo, setCurrentRoomInfo] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchTourData = async () => {
@@ -30,7 +32,14 @@ function VRTour() {
         console.log('Tour data fetched:', response.data);
         if (response.data[0] && response.data[0].parts) {
           setTourData(response.data[0]);
-          setSelectedRoom(response.data[0].parts[0]);
+
+          // Check URL parameters for a specific room
+          const params = new URLSearchParams(location.search);
+          const startingRoom = params.get('room') || 'Entrance West';
+
+          // Find the room based on the parameter or default to 'Entrance West'
+          const initialRoom = response.data[0].parts.find(part => part.title === startingRoom) || response.data[0].parts[0];
+          setSelectedRoom(initialRoom);
         } else {
           console.error('Unexpected tour data structure:', response.data);
         }
@@ -40,7 +49,7 @@ function VRTour() {
     };
 
     fetchTourData();
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     if (selectedRoom) {
@@ -199,10 +208,10 @@ function VRTour() {
         {selectedRoom && (
           <a-sky src={selectedRoom.imageUrl}></a-sky>
         )}
-        {selectedRoom.hotspots && selectedRoom.hotspots.map((hotspot, index) => (
+        {selectedRoom?.hotspots && selectedRoom.hotspots.map((hotspot, index) => (
           <Hotspot key={index} hotspot={hotspot} handleHotspotClick={handleHotspotClick} />
         ))}
-        {selectedRoom.arrowHotspots && selectedRoom.arrowHotspots.map((arrowHotspot, index) => (
+        {selectedRoom?.arrowHotspots && selectedRoom.arrowHotspots.map((arrowHotspot, index) => (
           <Hotspot key={`arrow-${index}`} hotspot={arrowHotspot} handleArrowClick={handleArrowClick} handleHotspotClick={handleHotspotClick}/>
         ))}
         {isHotspotOverlayOpen && currentHotspot && (
@@ -217,4 +226,3 @@ function VRTour() {
 }
 
 export default VRTour;
-
