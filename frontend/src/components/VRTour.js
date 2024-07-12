@@ -194,7 +194,7 @@ function VRTour() {
           ))}
           <img id="closeIcon" src={closeIcon} alt="Close Icon" />
         </a-assets>
-        <a-camera id="camera">
+        <a-camera id="camera" render-order="3">
         </a-camera>
         {selectedRoom && (
           <a-sky src={selectedRoom.imageUrl}></a-sky>

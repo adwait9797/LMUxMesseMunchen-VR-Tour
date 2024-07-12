@@ -4,7 +4,7 @@ import leftArrow from './assets/left_arrow.svg';
 import rightArrow from './assets/right_arrow.svg';
 import locationIcon from './assets/location_icon.svg';
 import listIcon from './assets/list_icon.svg';
-import mapIcon from './assets/map_icon.svg';
+// import mapIcon from './assets/map_icon.svg';
 import closeIcon from './assets/close_icon.svg'; // Import the close icon
 
 const RoomOverlay = ({ currentRoom, rooms, onRoomSelect, onClose }) => {
