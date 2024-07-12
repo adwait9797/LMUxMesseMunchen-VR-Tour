@@ -65,7 +65,7 @@ const Home = () => {
 
   const handleStartTour = () => {
     if (selectedOption) {
-      const destination = selectedOption === 'guided' ? '/guided-tour' : '/vrtour';
+      const destination = selectedOption === 'guided' ? '/guided-tour' : '/self-guided-tour-instructions';
       navigate(destination);
     }
   };

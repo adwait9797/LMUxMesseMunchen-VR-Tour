@@ -14,6 +14,10 @@ const Navigation = ({ currentRoom, onNavigationClick, onInfoClick, onMapClick, o
     setShowSurvey(!showSurvey);
   };
 
+  const handleCloseSurvey = () => {
+    setShowSurvey(false);
+  };
+
   return (
     <div className="navigation">
       <h2>{currentRoom}</h2>
@@ -35,7 +39,7 @@ const Navigation = ({ currentRoom, onNavigationClick, onInfoClick, onMapClick, o
           <img src={shareIcon} alt="Share" className="icon" />
         </div>
       </div>
-      {showSurvey && <NpsSurvey />} {/* Conditionally render NpsSurvey */}
+      {showSurvey && <NpsSurvey onClose={handleCloseSurvey} />} {/* Pass onClose to NpsSurvey */}
     </div>
   );
 };

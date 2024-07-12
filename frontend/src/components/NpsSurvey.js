@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './NpsSurvey.css';
 
-const NpsSurvey = () => {
+const NpsSurvey = ({ onClose }) => {
   const [rating, setRating] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -19,6 +19,13 @@ const NpsSurvey = () => {
       console.log('Response from server:', response); // Log the response from the server
       setSubmitted(true);
       setError('');
+
+      // Set a timeout to collapse the form after 5 seconds
+      setTimeout(() => {
+        setSubmitted(false); // Reset submission state
+        setRating(null); // Reset rating
+        onClose(); // Collapse the form
+      }, 5000);
     } catch (err) {
       console.error('Error submitting rating:', err); // Log any errors
       setError('There was an error submitting your rating. Please try again.');
