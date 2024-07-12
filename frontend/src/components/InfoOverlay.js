@@ -22,4 +22,3 @@ const InfoOverlay = ({ roomInfo, onClose }) => {
 };
 
 export default InfoOverlay;
-

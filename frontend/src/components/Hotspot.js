@@ -15,6 +15,7 @@ const Hotspot = ({ hotspot, handleHotspotClick, handleArrowClick }) => {
       class="clickable hotspot-wrapper"
       look-at="#camera"
       onClick={() => hotspot.targetRoom ? handleArrowClick(hotspot) : handleHotspotClick(hotspot)}
+      render-order="1"
     >
       <a-circle
         radius="0.6"
