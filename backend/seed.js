@@ -23,7 +23,7 @@ db.once('open', async () => {
         description: 'The main hall of the Messe München.', 
         imageUrl: 'assets/main_hall.jpg',
         hotspots: [
-          { title: 'Main Hall Info 1', position: '7 1 -3', description: 'This is the first hotspot in the Main Hall.' },
+          { title: 'Main Hall Info 1', position: '7 -2 -3', description: 'This is the first hotspot in the Main Hall.' },
           { title: 'Main Hall Info 2', position: '-1 2 -4', description: 'This is the second hotspot in the Main Hall.' },
         ],
         arrowHotspots: [
